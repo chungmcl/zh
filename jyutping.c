@@ -27,7 +27,6 @@ int main(int argc, char* argv[]) {
             buff[3] = '\0';
             printf("%s\t%s\n", buff, pronunciations[find_entry(0, PRONUNCIATIONS_LENGTH, buff)][1]);
         }
-        printf("\n");
 
         #if __APPLE__
         // speak
