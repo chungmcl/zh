@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
             char buff[4]; // unicode chinese chars are 3 bytes + \0 = 4 bytes
             memcpy(buff, argv[1] + i, 3);
             buff[3] = '\0';
-            printf("%s  %s\n", buff, pronunciations[find_entry(0, PRONUNCIATIONS_LENGTH, buff)][1]);
+            printf("%s\t%s\n", buff, pronunciations[find_entry(0, PRONUNCIATIONS_LENGTH, buff)][1]);
         }
         printf("\n");
 
