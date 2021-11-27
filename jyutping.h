@@ -1,5 +1,5 @@
 const int PRONUNCIATIONS_LENGTH = 5639;
-char* pronunciations[][2] =
+char* PRONUNCIATIONS[][2] =
 {
 	{ "0", "ling4" },
 	{ "1", "jat1" },
@@ -5639,5 +5639,5 @@ char* pronunciations[][2] =
 	{ "𫫃", "e1" },
 	{ "𫬷", "ke4" },
 	{ "𬒔", "ang2:ngang2" },
-	{ "𭉝", "syu2:syu4" },
+	{ "𭉝", "syu2:syu4" }
 };

@@ -24,12 +24,13 @@ for line in lines:
 hanzis.sort(key=lambda x: x.char, reverse=False)
 
 out = "const int PRONUNCIATIONS_LENGTH = " + str(len(hanzis)) + ";\n"
-out += "char* pronunciations[][2] =\n{\n"
+out += "char* PRONUNCIATIONS[][2] =\n{\n"
 for hanzi in hanzis:
     out += "\t{ "
     out += "\"" + hanzi.char + "\"" + ", "
     out += "\"" + ":".join(hanzi.jyutpings) + "\""
     out += " },\n"
+out = out[0:len(out) - 2] + "\n" # remove extra , and replace newline
 out += "};"
 
 with open('jyutping.h', "w") as file:
