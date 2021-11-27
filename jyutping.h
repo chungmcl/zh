@@ -1,4 +1,4 @@
-const int PRONUNCIATIONS_LENGTH = 5639;
+const int PRONUNCIATIONS_LENGTH = 5638;
 char* PRONUNCIATIONS[][2] =
 {
 	{ "0", "ling4" },
@@ -29,7 +29,6 @@ char* PRONUNCIATIONS[][2] =
 	{ "Q", "kiu1" },
 	{ "R", "aau1" },
 	{ "S", "e1" },
-	{ "Source", "" },
 	{ "T", "ti1" },
 	{ "U", "ju1" },
 	{ "V", "wi1" },

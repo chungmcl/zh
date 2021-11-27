@@ -16,8 +16,8 @@ with open('charlist.csv', "r") as file:
     lines = file.readlines()
 
 hanzis = []
-for line in lines:
-    line_split = line.split(',', 1)
+for i in range(1, len(lines)):
+    line_split = lines[i].split(',', 1)
     char = line_split[0]
     jyutpings = re.findall('""([^"]*)""', line_split[1])
     hanzis.append(Hanzi(char, jyutpings))
