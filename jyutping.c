@@ -29,11 +29,13 @@ int main(int argc, char* argv[]) {
         }
         printf("\n");
 
-        // speak 
+        #if __APPLE__
+        // speak
         char speech_command[strlen("say -v sin-ji ") + strlen(argv[1])];
         strcpy(speech_command, "say -r 87 -v sin-ji ");
         strcat(speech_command, argv[1]);
         system(speech_command);
+        #endif
     }
 }
 

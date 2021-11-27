@@ -1,5 +1,8 @@
 import re
 
+# Converts charlist.csv (credit to https://words.hk/faiman/analysis/charlist/) to a 2D string array literal 
+# in jyutping.h, so that the pronunciations are directly compiled into the executable
+
 class Hanzi:
     def __init__(self, char, jyutpings):
             self.char = char
