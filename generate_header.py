@@ -4,7 +4,7 @@ import yitizi
 # Converts charlist.csv (credit to https://words.hk/faiman/analysis/charlist/) to a 2D string array literal 
 # in jyutping.h, so that the pronunciations are directly compiled into the executable
 
-class Hanzi:
+class Honzi:
     def __init__(self, char, jyutpings):
             self.char = char
             jyutpings = [(jyutping[0], int(jyutping[1])) for jyutping in jyutpings] # convert 'commanality' score to int so it can be sorted
@@ -14,25 +14,28 @@ class Hanzi:
     def __lt__(self, other):
         return self.char < other.char
 
+# gather and sort all honzi and their variants' jyutping from charlist.csv and yitizi
 lines = []
 with open('charlist.csv', "r") as file:
     lines = file.readlines()
-
-hanzis = []
+honzis = []
+charsSoFar = []
 for i in range(1, len(lines)):
     line_split = lines[i].split(',', 1)
     char = line_split[0]
     jyutpings = re.findall('""([^"]*)"":\s+(\d+)', line_split[1])
-    if (char not in [x.char for x in hanzis]): # prevent duplicates (inefficient, i know, but it works!)
-        hanzis.append(Hanzi(char, jyutpings))
+    if (char not in charsSoFar): # prevent duplicates
+        honzis.append(Honzi(char, jyutpings))
+        charsSoFar.append(char)
     # Append character variants
     variants = yitizi.get(char) 
     for variant in variants:
-        if (variant not in [x.char for x in hanzis]): # prevent duplicates (inefficient, i know, but it works!)
-            hanzis.append(Hanzi(variant, jyutpings))
+        if (variant not in charsSoFar): # prevent duplicates
+            honzis.append(Honzi(variant, jyutpings))
+            charsSoFar.append(variant)
+honzis.sort(key=lambda x: x.char, reverse=False) # sort by unicode
 
-hanzis.sort(key=lambda x: x.char, reverse=False) # sort by unicode
-
+# Generate jyutping.h with [hanzis]
 out = \
 """
 /*********************************************
@@ -44,16 +47,14 @@ out = \
 **********************************************/
 
 """
-
-out += "const int PRONUNCIATIONS_LENGTH = " + str(len(hanzis)) + ";\n"
+out += "const int PRONUNCIATIONS_LENGTH = " + str(len(honzis)) + ";\n"
 out += "char* PRONUNCIATIONS[][2] =\n{\n"
-for hanzi in hanzis:
+for honzi in honzis:
     out += "\t{ "
-    out += "\"" + hanzi.char + "\"" + ", "
-    out += "\"" + ":".join([jyutping[0] for jyutping in hanzi.jyutpings]) + "\""
+    out += "\"" + honzi.char + "\"" + ", "
+    out += "\"" + ":".join([jyutping[0] for jyutping in honzi.jyutpings]) + "\""
     out += " },\n"
 out = out[0:len(out) - 2] + "\n" # remove extra ',' and replace newline
 out += "};"
-
 with open('jyutping.h', "w") as file:
     file.write(out)
