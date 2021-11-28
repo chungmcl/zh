@@ -1,4 +1,5 @@
 import re
+from hanziconv import HanziConv
 
 # Converts charlist.csv (credit to https://words.hk/faiman/analysis/charlist/) to a 2D string array literal 
 # in jyutping.h, so that the pronunciations are directly compiled into the executable
@@ -21,6 +22,9 @@ for i in range(1, len(lines)):
     char = line_split[0]
     jyutpings = re.findall('""([^"]*)""', line_split[1])
     hanzis.append(Hanzi(char, jyutpings))
+    charSimplified = HanziConv.toSimplified(char)
+    if (charSimplified != char):
+        hanzis.append(Hanzi(charSimplified, jyutpings))
 hanzis.sort(key=lambda x: x.char, reverse=False)
 
 out = "const int PRONUNCIATIONS_LENGTH = " + str(len(hanzis)) + ";\n"
