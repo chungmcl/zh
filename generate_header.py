@@ -35,7 +35,7 @@ for i in range(1, len(lines)):
             charsSoFar.append(variant)
 honzis.sort(key=lambda x: x.char, reverse=False) # sort by unicode
 
-# Generate jyutping.h with [hanzis]
+# Generate jyutping.h with [honzis]
 out = \
 """
 /*********************************************
