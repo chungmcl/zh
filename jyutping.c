@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
             char buff[5]; 
             memcpy(buff, byte, token_length); 
             buff[token_length] = '\0';
-            if (token_length >= 3) printf("%s\t\t%s\n", buff, PRONUNCIATIONS[find_entry(0, PRONUNCIATIONS_LENGTH, buff)][1]);
+            if (token_length >= 3 && token_length < 4) printf("%s\t\t%s\n", buff, PRONUNCIATIONS[find_entry(0, PRONUNCIATIONS_LENGTH, buff)][1]);
             else printf("%s\n", buff);
 
             byte += token_length;
