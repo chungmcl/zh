@@ -40,11 +40,13 @@ fn main() {
             if offset == len { break; }
         }
 
-        let output = Command::new("say")
-        .arg("-v")
-        .arg("sin-ji")
-        .arg(&args[1])
-        .spawn();
-        assert!(output.is_ok());
+        if env::consts::OS == "macos" {
+            let result = Command::new("say")
+            .arg("-v")
+            .arg("sin-ji")
+            .arg(&args[1])
+            .spawn();
+            assert!(result.is_ok());
+        }
     }
 }
