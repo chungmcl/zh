@@ -31,7 +31,9 @@ fn main() {
             idx = char_itr.next().unwrap().0;
             let offset = char_itr.offset();
             let loc = find_entry(0, DICT_LENGTH, &(args[1])[idx .. offset]);
-            println!("{}\t{}", DICT[loc][0], DICT[loc][1]);
+            if loc != usize::MAX {
+                println!("{}\t{}", DICT[loc][0], DICT[loc][1]);
+            }
             if offset == len { break; }
         }
 
