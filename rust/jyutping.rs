@@ -14,7 +14,7 @@ fn find_entry(l: usize, r: usize, x: &str) -> usize {
         if DICT[mid][0].eq(x) {
             return mid;
         }
-        if DICT[mid][0].cmp(x) == Ordering::Greater {
+        if DICT[mid][0] > x {
             return find_entry(l, mid - 1, x);
         }
         return find_entry(mid + 1, r, x);
