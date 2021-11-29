@@ -1,5 +1,6 @@
 import re
 import yitizi
+import sys
 
 # Converts charlist.csv (credit to https://words.hk/faiman/analysis/charlist/) to a 2D string array literal 
 # in jyutping.h, so that the pronunciations are directly compiled into the executable
@@ -35,7 +36,8 @@ for i in range(1, len(lines)):
             charsSoFar.append(variant)
 honzis.sort(key=lambda x: x.char, reverse=False) # sort by unicode
 
-# Generate jyutping.h with [honzis]
+
+# Generate jyutping.h or constants.rs with [honzis]
 out = \
 """
 /*********************************************
@@ -47,14 +49,29 @@ out = \
 **********************************************/
 
 """
-out += "const int PRONUNCIATIONS_LENGTH = " + str(len(honzis)) + ";\n"
-out += "char* PRONUNCIATIONS[][2] =\n{\n"
-for honzi in honzis:
-    out += "\t{ "
-    out += "\"" + honzi.char + "\"" + ", "
-    out += "\"" + ":".join([jyutping[0] for jyutping in honzi.jyutpings]) + "\""
-    out += " },\n"
-out = out[0:len(out) - 2] + "\n" # remove extra ',' and replace newline
-out += "};"
-with open('jyutping.h', "w") as file:
-    file.write(out)
+if sys.argv[1].lower() == "c":
+    out += "const int PRONUNCIATIONS_LENGTH = " + str(len(honzis)) + ";\n"
+    out += "char* PRONUNCIATIONS[][2] =\n{\n"
+    for honzi in honzis:
+        out += "\t{ "
+        out += "\"" + honzi.char + "\"" + ", "
+        out += "\"" + ":".join([jyutping[0] for jyutping in honzi.jyutpings]) + "\""
+        out += " },\n"
+    out = out[0:len(out) - 2] + "\n" # remove extra ',' and replace newline
+    out += "};"
+    with open('c/jyutping.h', "w") as file:
+        file.write(out)
+elif sys.argv[1].lower() == "rust":
+    out += "pub const DICT_LENGTH: usize = " + str(len(honzis)) + ";\n"
+    out += "pub const DICT: [[&str; 2];" + " DICT_LENGTH" + "] =\n[\n"
+    for honzi in honzis:
+        out += "\t[ "
+        out += "\"" + honzi.char + "\"" + ", "
+        out += "\"" + ":".join([jyutping[0] for jyutping in honzi.jyutpings]) + "\""
+        out += "],\n"
+    out = out[0:len(out) - 2] + "\n" # remove extra ',' and replace newline
+    out += "];"
+    with open('rust/constants.rs', "w") as file:
+        file.write(out)
+else:
+    print("Specify either C or Rust.")
