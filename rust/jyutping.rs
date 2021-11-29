@@ -9,7 +9,7 @@ use constants::DICT;
 fn find_entry(l: usize, r: usize, x: &str) -> usize {
     if r >= l {
         let mid: usize = l + (r - l) / 2;
-        println!("{} VS {}", DICT[mid][0], x);
+        println!("{} VS {}: {:?}", DICT[mid][0], x, DICT[mid][0].cmp(x));
         if DICT[mid][0].cmp(x) == Ordering::Equal {
             //println!("equal");
             return mid;
