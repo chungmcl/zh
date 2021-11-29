@@ -50,8 +50,8 @@ out = \
 
 """
 if sys.argv[1].lower() == "c":
-    out += "const int PRONUNCIATIONS_LENGTH = " + str(len(honzis)) + ";\n"
-    out += "char* PRONUNCIATIONS[][2] =\n{\n"
+    out += "const int DICT_LENGTH = " + str(len(honzis)) + ";\n"
+    out += "char* DICT[][2] =\n{\n"
     for honzi in honzis:
         out += "\t{ "
         out += "\"" + honzi.char + "\"" + ", "

@@ -7,8 +7,8 @@
 *
 **********************************************/
 
-const int PRONUNCIATIONS_LENGTH = 9038;
-char* PRONUNCIATIONS[][2] =
+const int DICT_LENGTH = 9038;
+char* DICT[][2] =
 {
 	{ "0", "ling4" },
 	{ "1", "jat1" },
