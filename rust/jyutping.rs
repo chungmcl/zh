@@ -1,7 +1,6 @@
 #![feature(char_indices_offset)]
 use std::env;
 use std::process::Command;
-use std::cmp::Ordering;
 use std::str::CharIndices;
 
 mod constants;
@@ -11,7 +10,7 @@ use constants::DICT;
 fn find_entry(l: usize, r: usize, x: &str) -> usize {
     if r >= l {
         let mid: usize = l + (r - l) / 2;
-        if DICT[mid][0].eq(x) {
+        if DICT[mid][0] == x {
             return mid;
         }
         if DICT[mid][0] > x {
