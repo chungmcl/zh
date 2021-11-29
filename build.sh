@@ -1,5 +1,5 @@
 if [ $1 = "rust" ]; then
-    python3 generate_header.py rust && rustc -C prefer-dynamic rust/jyutping.rs 
+    python3 generate_header.py rust && rustc -C opt-level=3 rust/jyutping.rs 
 fi
 if [ $1 = "c" ]; then
     python3 generate_header.py c && gcc -o jyutping c/jyutping.c

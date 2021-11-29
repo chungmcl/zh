@@ -25,14 +25,17 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() > 1 {
         let mut char_itr: CharIndices = args[1].char_indices();
-        let mut idx: usize;
+        let mut curr: (usize, char);
         let len: usize = String::len(&args[1]);
         loop {
-            idx = char_itr.next().unwrap().0;
+            curr = char_itr.next().unwrap();
             let offset = char_itr.offset();
-            let loc = find_entry(0, DICT_LENGTH, &(args[1])[idx .. offset]);
+            let loc = find_entry(0, DICT_LENGTH, &(args[1])[curr.0 .. offset]);
             if loc != usize::MAX {
                 println!("{}\t{}", DICT[loc][0], DICT[loc][1]);
+            }
+            else {
+                println!("{}", curr.1);
             }
             if offset == len { break; }
         }
