@@ -8,7 +8,7 @@ use constants::DICT_LENGTH;
 use constants::DICT;
 
 fn find_entry(l: usize, r: usize, x: &str) -> usize {
-    if r >= l {
+    if r >= l && r != usize::MAX {
         let mid: usize = l + (r - l) / 2;
         if DICT[mid][0] == x {
             return mid;
@@ -31,7 +31,7 @@ fn main() {
             curr = char_itr.next().unwrap();
             let offset = char_itr.offset();
             let loc = find_entry(0, DICT_LENGTH, &(args[1])[curr.0 .. offset]);
-            if loc != usize::MAX {
+            if loc < DICT_LENGTH {
                 println!("{}\t{}", DICT[loc][0], DICT[loc][1]);
             }
             else {
