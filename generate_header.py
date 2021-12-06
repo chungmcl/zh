@@ -1,6 +1,5 @@
 import re
 import yitizi
-import sys
 
 # Converts charlist.csv (credit to https://words.hk/faiman/analysis/charlist/) to a 2D string array literal 
 # in jyutping.h, so that the pronunciations are directly compiled into the executable
@@ -49,29 +48,14 @@ out = \
 **********************************************/
 
 """
-if sys.argv[1].lower() == "c":
-    out += "const int DICT_LENGTH = " + str(len(honzis)) + ";\n"
-    out += "char* DICT[][2] =\n{\n"
-    for honzi in honzis:
-        out += "\t{ "
-        out += "\"" + honzi.char + "\"" + ", "
-        out += "\"" + ":".join([jyutping[0] for jyutping in honzi.jyutpings]) + "\""
-        out += " },\n"
-    out = out[0:len(out) - 2] + "\n" # remove extra ',' and replace newline
-    out += "};"
-    with open('c/jyutping.h', "w") as file:
-        file.write(out)
-elif sys.argv[1].lower() == "rust":
-    out += "pub const DICT_LENGTH: usize = " + str(len(honzis)) + ";\n"
-    out += "pub const DICT: [[&str; 2];" + " DICT_LENGTH" + "] =\n[\n"
-    for honzi in honzis:
-        out += "\t[ "
-        out += "\"" + honzi.char + "\"" + ", "
-        out += "\"" + ":".join([jyutping[0] for jyutping in honzi.jyutpings]) + "\""
-        out += "],\n"
-    out = out[0:len(out) - 2] + "\n" # remove extra ',' and replace newline
-    out += "];"
-    with open('rust/constants.rs', "w") as file:
-        file.write(out)
-else:
-    print("Specify either C or Rust.")
+out += "pub const DICT_LENGTH: usize = " + str(len(honzis)) + ";\n"
+out += "pub const DICT: [[&str; 2];" + " DICT_LENGTH" + "] =\n[\n"
+for honzi in honzis:
+    out += "\t[ "
+    out += "\"" + honzi.char + "\"" + ", "
+    out += "\"" + ":".join([jyutping[0] for jyutping in honzi.jyutpings]) + "\""
+    out += "],\n"
+out = out[0:len(out) - 2] + "\n" # remove extra ',' and replace newline
+out += "];"
+with open('rust/constants.rs', "w") as file:
+    file.write(out)
