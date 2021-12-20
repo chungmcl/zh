@@ -1,3 +1,5 @@
+//#![feature(char_indices_offset)]
+//use std::str::CharIndices;
 use std::env;
 use std::process::Command;
 
@@ -27,7 +29,7 @@ fn main() {
             let curr: (usize, char) = *char_indices.get(idx).unwrap();
             let offset: usize = char_indices.get(idx + 1).unwrap().0;
             let loc = find_entry(0, DICT_LENGTH, &(args[1])[curr.0 .. offset]);
-
+//
             if loc < DICT_LENGTH {
                 println!("{}\t{}", DICT[loc][0], DICT[loc][1]);
             }
@@ -45,6 +47,7 @@ fn main() {
         }
 
         // This code is much cleaner, but requires: #![feature(char_indices_offset)]
+        //let char_itr: CharIndices = args[1].char_indices();
         //let mut curr: (usize, char);
         //let len: usize = String::len(&args[1]);
         //loop {
@@ -59,14 +62,15 @@ fn main() {
         //    }
         //    if offset == len { break; }
         //}
-
-        if env::consts::OS == "macos" {
-            let result = Command::new("say")
-            .arg("-v")
-            .arg("sin-ji")
-            .arg(&args[1])
-            .spawn();
-            assert!(result.is_ok());
+        if args.len() > 2 {
+            if env::consts::OS == "macos" && (args[2] == "--speak" || args[2] == "-s")  {
+                let result = Command::new("say")
+                .arg("-v")
+                .arg("sin-ji")
+                .arg(&args[1])
+                .spawn();
+                assert!(result.is_ok());
+            }
         }
     }
 }
