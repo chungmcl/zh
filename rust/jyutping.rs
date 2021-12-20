@@ -29,7 +29,7 @@ fn main() {
             let curr: (usize, char) = *char_indices.get(idx).unwrap();
             let offset: usize = char_indices.get(idx + 1).unwrap().0;
             let loc = find_entry(0, DICT_LENGTH, &(args[1])[curr.0 .. offset]);
-//
+
             if loc < DICT_LENGTH {
                 println!("{}\t{}", DICT[loc][0], DICT[loc][1]);
             }
