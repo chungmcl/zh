@@ -62,6 +62,7 @@ fn main() {
         //    }
         //    if offset == len { break; }
         //}
+        
         if args.len() > 2 {
             if env::consts::OS == "macos" && (args[2] == "--speak" || args[2] == "-s")  {
                 let result = Command::new("say")
