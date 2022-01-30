@@ -31,7 +31,7 @@ fn main() {
             let loc = find_entry(0, DICT_LENGTH, &(args[1])[curr.0 .. offset]);
 
             if loc < DICT_LENGTH {
-                println!("{}\t{}", DICT[loc][0], DICT[loc][1]);
+                println!("{}\t{}\t{}", DICT[loc][0], DICT[loc][2], DICT[loc][1]);
             }
             else {
                 println!("{}", curr.1);
@@ -40,7 +40,7 @@ fn main() {
         let curr: (usize, char) = *char_indices.get(char_indices.len() - 1).unwrap();
         let loc = find_entry(0, DICT_LENGTH, &(args[1])[curr.0 .. args[1].len()]);
         if loc < DICT_LENGTH {
-            println!("{}\t{}", DICT[loc][0], DICT[loc][1]);
+            println!("{}\t{}\t{}", DICT[loc][0], DICT[loc][2], DICT[loc][1]);
         }
         else {
             println!("{}", curr.1);
@@ -63,11 +63,19 @@ fn main() {
         //    if offset == len { break; }
         //}
         
-        if args.len() > 2 {
-            if env::consts::OS == "macos" && (args[2] == "--speak" || args[2] == "-s")  {
+        if args.len() > 2 && env::consts::OS == "macos" {
+            if args[2] == "--cantonese" || args[2] == "-c" {
                 let result = Command::new("say")
                 .arg("-v")
                 .arg("sin-ji")
+                .arg(&args[1])
+                .spawn();
+                assert!(result.is_ok());
+            }
+            else if args[2] == "--mandarin" || args[2] == "-m" {
+                let result = Command::new("say")
+                .arg("-v")
+                .arg("ting-ting")
                 .arg(&args[1])
                 .spawn();
                 assert!(result.is_ok());

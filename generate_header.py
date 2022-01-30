@@ -1,15 +1,17 @@
 import re
 import yitizi
+import pinyin
 
 # Converts charlist.csv (credit to https://words.hk/faiman/analysis/charlist/) to a 2D string array literal 
 # in jyutping.h, so that the pronunciations are directly compiled into the executable
 
 class Honzi:
-    def __init__(self, char, jyutpings):
+    def __init__(self, char, jyutpings, pinyin):
             self.char = char
             jyutpings = [(jyutping[0], int(jyutping[1])) for jyutping in jyutpings] # convert 'commanality' score to int so it can be sorted
             self.jyutpings = jyutpings
             self.jyutpings.sort(key=lambda x: x[1], reverse=True) # sort by 'commonality' score
+            self.pinyin = pinyin
 
     def __lt__(self, other):
         return self.char < other.char
@@ -25,13 +27,13 @@ for i in range(1, len(lines)):
     char = line_split[0]
     jyutpings = re.findall('""([^"]*)"":\s+(\d+)', line_split[1])
     if (char not in charsSoFar): # prevent duplicates
-        honzis.append(Honzi(char, jyutpings))
+        honzis.append(Honzi(char, jyutpings, pinyin.get(char)))
         charsSoFar.append(char)
     # Append character variants
     variants = yitizi.get(char) 
     for variant in variants:
         if (variant not in charsSoFar): # prevent duplicates
-            honzis.append(Honzi(variant, jyutpings))
+            honzis.append(Honzi(variant, jyutpings, pinyin.get(char)))
             charsSoFar.append(variant)
 honzis.sort(key=lambda x: x.char, reverse=False) # sort by unicode
 
@@ -49,11 +51,12 @@ out = \
 
 """
 out += "pub const DICT_LENGTH: usize = " + str(len(honzis)) + ";\n"
-out += "pub const DICT: [[&str; 2];" + " DICT_LENGTH" + "] =\n[\n"
+out += "pub const DICT: [[&str; 3];" + " DICT_LENGTH" + "] =\n[\n"
 for honzi in honzis:
     out += "\t[ "
     out += "\"" + honzi.char + "\"" + ", "
-    out += "\"" + ":".join([jyutping[0] for jyutping in honzi.jyutpings]) + "\""
+    out += "\"" + ":".join([jyutping[0] for jyutping in honzi.jyutpings]) + "\"" + ", "
+    out += "\"" + honzi.pinyin + "\""
     out += "],\n"
 out = out[0:len(out) - 2] + "\n" # remove extra ',' and replace newline
 out += "];"
