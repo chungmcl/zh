@@ -60,5 +60,5 @@ for honzi in honzis:
     out += "],\n"
 out = out[0:len(out) - 2] + "\n" # remove extra ',' and replace newline
 out += "];"
-with open('rust/constants.rs', "w") as file:
+with open('constants.rs', "w") as file:
     file.write(out)
