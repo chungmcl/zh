@@ -64,7 +64,7 @@ fn main() {
         //}
         
         if args.len() > 2 && env::consts::OS == "macos" {
-            if args[2] == "--cantonese" || args[2] == "-c" {
+            if args[2] == "--cantonese" || args[2] == "-c" || args[2] == "c" {
                 let result = Command::new("say")
                 .arg("-v")
                 .arg("sin-ji")
@@ -72,7 +72,7 @@ fn main() {
                 .spawn();
                 assert!(result.is_ok());
             }
-            else if args[2] == "--mandarin" || args[2] == "-m" {
+            else if args[2] == "--mandarin" || args[2] == "-m" || args[2] == "m" {
                 let result = Command::new("say")
                 .arg("-v")
                 .arg("ting-ting")
