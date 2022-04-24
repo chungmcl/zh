@@ -38,8 +38,9 @@ fn get_info(phrase: &str, audio_language: AudioLanguageOption) {
 
         if loc < DICT_LENGTH {
             println!("{}\t{}\t{}", DICT[loc][0], DICT[loc][2], DICT[loc][1]);
-        }
-        else {
+        } else if curr.1 == '\n' {
+            println!("");
+        } else if curr.1 >= 32 as char {
             println!("{}", curr.1);
         }
     }
@@ -47,8 +48,9 @@ fn get_info(phrase: &str, audio_language: AudioLanguageOption) {
     let loc = find_entry(0, DICT_LENGTH, &(phrase)[curr.0 .. phrase.len()]);
     if loc < DICT_LENGTH {
         println!("{}\t{}\t{}", DICT[loc][0], DICT[loc][2], DICT[loc][1]);
-    }
-    else {
+    } else if curr.1 == '\n' {
+        println!("");
+    } else if curr.1 >= 32 as char {
         println!("{}", curr.1);
     }
 
@@ -102,7 +104,9 @@ fn main() {
         
         while let Ok(n) = stdin().read_to_end(&mut buff) {
             if n == 0 { break; }
-            let input: String = std::str::from_utf8(&buff).expect("buff to str failed.").to_string();
+            let input: String = std::str::from_utf8(&buff)
+                .expect("buff to str failed.")
+                .to_string();
             
             get_info(&input, AudioLanguageOption::None);
 
