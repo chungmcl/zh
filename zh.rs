@@ -40,7 +40,8 @@ fn get_info(phrase: &str, audio_language: AudioLanguageOption) {
             println!("{}\t{}\t{}", DICT[loc][0], DICT[loc][2], DICT[loc][1]);
         } else if curr.1 == '\n' {
             println!("");
-        } else if curr.1 >= 32 as char {
+        }
+        else if curr.1 >= 32 as char {
             println!("{}", curr.1);
         }
     }
