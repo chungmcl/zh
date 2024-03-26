@@ -78,7 +78,7 @@ fn get_info(phrase: &str, audio_language: AudioLanguageOption) {
             AudioLanguageOption::Cantonese => {
                 let result = Command::new("say")
                 .arg("-v")
-                .arg("sin-ji")
+                .arg("Sinji (Premium)")
                 .arg(&phrase)
                 .spawn();
                 assert!(result.is_ok());
@@ -86,7 +86,7 @@ fn get_info(phrase: &str, audio_language: AudioLanguageOption) {
             AudioLanguageOption::Mandarin => {
                 let result = Command::new("say")
                 .arg("-v")
-                .arg("ting-ting")
+                .arg("Tingting (Enhanced)")
                 .arg(&phrase)
                 .spawn();
                 assert!(result.is_ok());
