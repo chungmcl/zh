@@ -1,5 +1,8 @@
-clear
-# macosClear
-pip3 install yitizi && pip3 install pinyin && python3 generate_header.py && rustc -C opt-level=3 zh.rs
-# rustc -C opt-level=3 zh.rs
+PYTHON=/usr/bin/python3
+
+$PYTHON -m pip install yitizi && \
+$PYTHON -m pip install pinyin && \
+$PYTHON generate_header.py && \
+rustc -C opt-level=3 zh.rs
+
 exit 1

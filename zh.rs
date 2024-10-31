@@ -37,7 +37,7 @@ fn get_info(phrase: &str, audio_language: AudioLanguageOption) {
         let loc = find_entry(0, DICT_LENGTH, &(phrase)[curr.0 .. offset]);
 
         if loc < DICT_LENGTH {
-            println!("{}\t{}\t{}", DICT[loc][0], DICT[loc][2], DICT[loc][1]);
+            println!("{hanzi:<7}{pinyin:<7}{jyutping:<7}", hanzi=DICT[loc][0], pinyin=DICT[loc][2], jyutping=DICT[loc][1]);
         } else if curr.1 == '\n' {
             println!("");
         }
@@ -48,7 +48,7 @@ fn get_info(phrase: &str, audio_language: AudioLanguageOption) {
     let curr: (usize, char) = *char_indices.get(char_indices.len() - 1).unwrap();
     let loc = find_entry(0, DICT_LENGTH, &(phrase)[curr.0 .. phrase.len()]);
     if loc < DICT_LENGTH {
-        println!("{}\t{}\t{}", DICT[loc][0], DICT[loc][2], DICT[loc][1]);
+        println!("{hanzi:<7}{pinyin:<7}{jyutping:<7}", hanzi=DICT[loc][0], pinyin=DICT[loc][2], jyutping=DICT[loc][1]);
     } else if curr.1 == '\n' {
         println!("");
     } else if curr.1 >= 32 as char {
@@ -78,7 +78,8 @@ fn get_info(phrase: &str, audio_language: AudioLanguageOption) {
             AudioLanguageOption::Cantonese => {
                 let result = Command::new("say")
                 .arg("-v")
-                .arg("Sinji (Premium)")
+                // .arg("Sinji (Premium)")
+                .arg("Sinji")
                 .arg(&phrase)
                 .spawn();
                 assert!(result.is_ok());
@@ -86,7 +87,8 @@ fn get_info(phrase: &str, audio_language: AudioLanguageOption) {
             AudioLanguageOption::Mandarin => {
                 let result = Command::new("say")
                 .arg("-v")
-                .arg("Tingting (Enhanced)")
+                // .arg("Tingting (Enhanced)")
+                .arg("Tingting")
                 .arg(&phrase)
                 .spawn();
                 assert!(result.is_ok());
