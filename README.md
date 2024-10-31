@@ -8,7 +8,7 @@ chungmcl@mac ~ % zh 你好嗎
 嗎      ma     maa1:maa3
 ```
 
-On macOS, use `--cantonese`/`-c`/`c` or `--mandarin`/`-m`/`m` after your input to have `zh` pronounce your input for you.
+On macOS, use `--cantonese`/`-c`/`c` or `--mandarin`/`-m`/`m` as an argument after your input to have `zh` pronounce your input for you.
 For instance:
 ```
 chungmcl@mac ~ % zh 你好嗎 c
@@ -16,7 +16,7 @@ chungmcl@mac ~ % zh 你好嗎 c
 好      hǎo    hou2:hou3
 嗎      ma     maa1:maa3
 ```
-should audibly play the pronunciation out for you.
+should audibly play the pronunciation out in Cantonese for you.
 
 For longer inputs, you can use multi-line mode:
 ```
